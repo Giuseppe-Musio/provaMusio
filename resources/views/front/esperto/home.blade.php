@@ -1,30 +1,13 @@
 @extends('front.master')
 
 @section('content')
-<style>
-p{
-
-    margin-left: 1000px;
-}
-
-.panel-heading{
-    font-weight: bold;
-    font-size: 15px;
-}
-
-
-</style>
-
-
-
     <div class="row">
-        <p>{{Auth::user()->role}}: {{Auth::user()->name }}</p>
         <form id="studioForm" class="form-horizontal" method="GET">
             {{ csrf_field() }}
             <div class="col-md-8 col-md-offset-2">
                 {{ $data->links() }}
                 <div class="panel panel-default">
-                    <div class="panel-heading">STUDI CREATI</div>
+                    <div class="panel-heading">Studi Creati</div>
                     <div class="panel-body">
                         @php $i=0; @endphp
                         @forelse($data as $value)
@@ -36,7 +19,7 @@ p{
                                         <th>Descrizione</th>
                                         <th>URL</th>
                                         <th>Data</th>
-                                        <th>Opzioni</th>
+                                        <th>Valuta</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -52,20 +35,12 @@ p{
                                                     <button class="btn btn-default dropdown-toggle" type="button"
                                                             id="dropDownOptionMenu{{$i}}" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="true">
-                                                         Opzioni
+                                                        Scegli una Opzione
                                                         <span class="caret" />
                                                     </button>
                                                     <ul class="dropdown-menu"
                                                         aria-labelledby="dropDownOptionMenu{{$i}}">
                                                         <li>
-                                                            <a href="{{ route('esperto.joinTesterToStudy', ['study' => $value->id, 'user' => $value->user_id]) }}"
-                                                        id="buttonTesterInvite{{$i}}">
-                                                        Invita Partecipanti
-                                                            </a>
-                                                            <hr style="margin-bottom: 15px;margin-top: 8px;">
-                                                        </li>
-                                                        <li>
-                                                            <h5 style="margin-left: 20px;margin-bottom: 2px;color:grey; font-size: 12px;">Valuta:</h5>
                                                             <a href="{{ route('valutazione.audio', ['study' => $value->id, 'user' => $value->user_id]) }}">Audio</a>
                                                         </li>
                                                         <li>
@@ -88,7 +63,12 @@ p{
                                                 </li>
                                             </ul>
                                         </td>
-                                       
+                                        <td>
+                                            <a href="{{ route('esperto.joinTesterToStudy', ['study' => $value->id, 'user' => $value->user_id]) }}"
+                                               class="btn btn-primary" id="buttonTesterInvite{{$i}}">
+                                                Invita Partecipanti
+                                            </a>
+                                        </td>
                                     </tr>
                                     @php $i++; @endphp
                                     @empty
